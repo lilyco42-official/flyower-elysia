@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center;     /* 垂直居中 */
+}
+
+main {
+  /* 移除 width: 100%; 和 height: 100vh; 
+     否则会占满整个容器，居中效果被掩盖 */
+  width: 300px;   /* 根据实际内容设置宽度 */
+  height: 200px;  /* 根据实际内容设置高度 */
+  /* 或者不设宽高，由内容撑开 */
+}
