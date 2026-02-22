@@ -62,7 +62,7 @@ const app = new Elysia()
       return { success: false, message: '密码至少6位' };
     }
     if (userExists(username)) {
-      return { success: false, message: '用户名已存在' };
+      return { success: false, message: '用户名已存在，<a href="/sign_in.html">点击登录</a>' };
     }
 
     const passwordHash = await Bun.password.hash(password);

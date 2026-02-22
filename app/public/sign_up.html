@@ -38,7 +38,7 @@
         body: JSON.stringify(data)
       });
       const result = await res.json();
-      document.getElementById('message').innerText = result.message;
+      document.getElementById('message').innerHTML= result.message;
       if (result.success) {
         setTimeout(() => {
           window.location.href = '/sign_in.html';
