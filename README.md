@@ -70,9 +70,9 @@
 ---
 
 ## 🧾 审核流程
-
+ 
 1. 用户上传图片 → 状态为 `pending`
-2. 管理员审核：
+2. 管理员登录admin.html 审核：
    - `approved` → 公开显示
    - `rejected` → 填写拒绝原因
 
@@ -86,36 +86,49 @@
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
-版本 ≥ 1.3.0```
+
+版本 ≥ 1.3.0
+```
 📥 安装步骤
 1️⃣ 克隆项目
+```
 git clone https://github.com/yourusername/elysia-image-board.git
+```
+```
 cd elysia-image-board
+```
 2️⃣ 安装依赖
+```
 bun install
+```
 3️⃣ 配置环境变量（可选）
 
+```
 创建 .env
-
+```
+```
 JWT_SECRET=your-secret
-
+```
 默认值：
-
+```
 dev-secret-key
+```
 4️⃣ 启动开发服务器
+```
 bun run dev
-
+```
 访问：
-
+```
 http://localhost:3000
+```
 👑 设置管理员
 
 首次启动后执行：
-
+```
 sqlite3 users.db "UPDATE users SET role='admin' WHERE username='你的用户名';"
-
+```
 重新登录即可获得管理员权限。
-
+```
 📁 项目结构
 .
 ├── public/          # 静态前端
@@ -125,8 +138,9 @@ sqlite3 users.db "UPDATE users SET role='admin' WHERE username='你的用户名'
 ├── package.json
 ├── README.md
 └── .env.example
+```
 📚 API Overview
-
+```
 Base URL:
 
 http://localhost:3000
@@ -137,6 +151,8 @@ POST	/sign_in	登录
 GET	/images	浏览图片
 GET	/images/:id	图片详情
 GET	/users/:username	用户主页
+
+
 🔐 用户接口
 Method	Endpoint
 GET	/me
@@ -146,6 +162,8 @@ POST	/images/:id/like
 POST	/collections
 GET	/me/collections
 POST	/users/:username/follow
+
+
 👑 管理员接口
 Method	Endpoint
 GET	/admin/stats
@@ -155,13 +173,13 @@ POST	/admin/images/batch-review
 GET	/admin/users
 ⚙️ 可自定义配置
 📊 每日上传限额
-
+```
 修改：
-
+```
 DAILY_LIMIT_BYTES
-
+```
 默认：
-
+```
 50MB
 🖼️ 单图大小限制
 
@@ -170,18 +188,21 @@ DAILY_LIMIT_BYTES
 10 * 1024 * 1024
 🗄️ 数据库路径
 new Database('users.db')
+
+```
 🧪 测试
-
+```
 目前无自动化测试。
-
+```
 可使用：
-
+```
 Bruno
 
 Postman
 
 导入 API 手动测试。
-
+```
 📄 License
-
+```
 MIT
+```
