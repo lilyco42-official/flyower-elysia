@@ -3,6 +3,7 @@
 <head>
   <title>仪表盘</title>
   <link href="init.css" rel="stylesheet">
+  <link rel="icon" href="./icon/favicon.ico" type="image/x-icon" />
   <style>
     /* 可选的倒计时样式 */
     #countdown { font-size: 14px; color: #666; margin-top: 10px; }
@@ -28,7 +29,7 @@
         const user = await res.json();
         document.getElementById('user').innerText = `你好，${user.username}`;
         // 登录成功，开始倒计时跳转
-        startCountdown(3); // 3秒后跳转
+        startCountdown(3); 
       } else {
         localStorage.removeItem('token');
         window.location.href = '/sign_in.html';
