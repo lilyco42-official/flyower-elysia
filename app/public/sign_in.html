@@ -8,8 +8,8 @@
 <body>
   <main>
     <form id="loginForm">
-      <label for="username">用户名</label>
-      <input type="text" id="username" name="username" required>
+      <label for="login">用户名或邮箱</label>
+      <input type="text" name="login" id="login" placeholder="用户名或邮箱" required>
       <label for="password">密码</label>
       <input type="password" id="password" name="password" required>
       <button type="submit">登录</button>
@@ -23,7 +23,7 @@
       e.preventDefault();
       const form = e.target;
       const data = {
-        username: form.username.value,
+        login: form.login.value,
         password: form.password.value
       };
 

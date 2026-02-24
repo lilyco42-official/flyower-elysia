@@ -2,11 +2,16 @@
 <html>
 <head>
   <title>仪表盘</title>
-    <link href="init.css" rel="stylesheet">
+  <link href="init.css" rel="stylesheet">
+  <style>
+    /* 可选的倒计时样式 */
+    #countdown { font-size: 14px; color: #666; margin-top: 10px; }
+  </style>
 </head>
 <body>
   <h1>欢迎！</h1>
   <div id="user"></div>
+  <div id="countdown"></div> <!-- 显示倒计时 -->
   <button onclick="logout()">退出登录</button>
 
   <script>
@@ -22,17 +27,35 @@
       if (res.ok) {
         const user = await res.json();
         document.getElementById('user').innerText = `你好，${user.username}`;
+        // 登录成功，开始倒计时跳转
+        startCountdown(3); // 3秒后跳转
       } else {
         localStorage.removeItem('token');
         window.location.href = '/sign_in.html';
       }
     }
-    loadUser();
+
+    function startCountdown(seconds) {
+      const countdownEl = document.getElementById('countdown');
+      countdownEl.innerText = `${seconds} 秒后自动跳转到首页...`;
+
+      const interval = setInterval(() => {
+        seconds--;
+        if (seconds <= 0) {
+          clearInterval(interval);
+          window.location.href = '/index.html'; // 跳转到瀑布流首页
+        } else {
+          countdownEl.innerText = `${seconds} 秒后自动跳转到首页...`;
+        }
+      }, 1000);
+    }
 
     function logout() {
       localStorage.removeItem('token');
       window.location.href = '/sign_in.html';
     }
+
+    loadUser();
   </script>
 </body>
 </html>
