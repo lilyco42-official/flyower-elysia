@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注册 · 云枢智创</title>
+  <style>
+    /* ── 重置与变量 ────────────────────────── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #faf7f2;
+      --warm: #f2ede4;
+      --nude: #e8ddd0;
+      --blush: #d4a5a5;
+      --rose: #b87070;
+      --clay: #8b5e5e;
+      --ink: #2d2420;
+      --ink2: #6b5c58;
+      --ink3: #a49490;
+      --white: #ffffff;
+      --shadow: rgba(45, 36, 32, 0.08);
+      --radius: 20px;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, var(--cream) 0%, var(--warm) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      margin: 0;
+      color: var(--ink);
+    }
+
+    /* ── 主卡片 ───────────────────────────── */
+    main {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid var(--nude);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 40px var(--shadow), 0 8px 16px rgba(0, 0, 0, 0.04);
+      width: 100%;
+      max-width: 460px;            /* 稍宽以容纳更多字段 */
+      padding: 40px 32px;
+      transition: transform 0.2s ease;
+    }
+
+    /* ── 标题（隐含品牌）──────────────────── */
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-style: italic;
+      color: var(--clay);
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand span {
+      display: block;
+      font-size: 0.8rem;
+      font-style: normal;
+      color: var(--ink3);
+      font-family: 'Noto Sans SC', sans-serif;
+      margin-top: -6px;
+    }
+
+    /* ── 表单元素 ────────────────────────── */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;                   /* 字段间距 */
+      margin-top: 24px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--ink2);
+      margin-left: 4px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--white);
+      border: 1.5px solid var(--nude);
+      border-radius: 40px;
+      font-size: 0.95rem;
+      color: var(--ink);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--blush);
+      box-shadow: 0 0 0 4px rgba(212, 165, 165, 0.2);
+    }
+
+    input::placeholder {
+      color: var(--ink3);
+      opacity: 0.6;
+    }
+
+    /* 密码强度提示（可选，简单示例） */
+    .password-hint {
+      font-size: 0.7rem;
+      color: var(--ink3);
+      margin-top: 2px;
+      padding-left: 16px;
+    }
+
+    button {
+      background: var(--clay);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 10px;
+      box-shadow: 0 4px 10px rgba(139, 94, 94, 0.2);
+    }
+
+    button:hover {
+      background: var(--rose);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* ── 消息提示 ────────────────────────── */
+    #message {
+      margin: 20px 0 0;
+      padding: 10px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      text-align: center;
+      background: var(--warm);
+      color: var(--ink2);
+      border: 1px solid var(--nude);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    #message:not(:empty) {
+      opacity: 1;
+    }
+
+    #message.success {
+      background: #e2f0e6;
+      color: #2c6e49;
+      border-color: #b8d9c6;
+    }
+
+    #message.error {
+      background: #ffe2e2;
+      color: #b05252;
+      border-color: #f3b5b5;
+    }
+
+    /* ── 页脚链接 ────────────────────────── */
+    .footer-links {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--ink3);
+    }
+
+    .footer-links a {
+      color: var(--clay);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted var(--blush);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--rose);
+      border-bottom-style: solid;
+    }
+
+    /* ── 响应式微调 ──────────────────────── */
+    @media (max-width: 480px) {
+      main {
+        padding: 32px 20px;
+      }
+
+      .brand {
+        font-size: 1.8rem;
+      }
+
+      input, button {
+        font-size: 0.9rem;
+        padding: 12px 14px;
+      }
+
+      button {
+        padding: 14px 14px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      main {
+        padding: 24px 16px;
+      }
+    }
+
+    /* ── 背景纹理（可选） ─────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+  </style>
+  <!-- 字体预连接 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <div class="brand">
+      📌 lain42
+      <span>云枢智创 · 图片社区</span>
+    </div>
+
+    <form id="registerForm">
+      <div class="field">
+        <label for="username">用户名</label>
+        <input type="text" id="username" name="username" placeholder="例如：lain42" required>
+      </div>
+
+      <div class="field">
+        <label for="email">邮箱 <span style="font-weight: normal; color: var(--ink3);">（选填）</span></label>
+        <input type="email" name="email" id="email" placeholder="lain@example.com">
+      </div>
+
+      <div class="field">
+        <label for="password">密码</label>
+        <input type="password" id="password" name="password" placeholder="至少6位" required>
+        <div class="password-hint">至少6位，建议使用字母+数字</div>
+      </div>
+
+      <div class="field">
+        <label for="confirm_password">确认密码</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="再次输入密码" required>
+      </div>
+
+      <button type="submit">注册</button>
+    </form>
+
+    <div id="message"></div>
+
+    <div class="footer-links">
+      已有账号？ <a href="/sign_in.html">立即登录</a>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        username: form.username.value,
+        email: form.email.value,              // 可选字段，会正常提交
+        password: form.password.value,
+        confirm_password: form.confirm_password.value
+      };
+
+      const messageDiv = document.getElementById('message');
+      messageDiv.innerText = '';
+      messageDiv.className = '';
+
+      // 简单前端校验（可选）
+      if (data.password !== data.confirm_password) {
+        messageDiv.innerText = '两次输入的密码不一致';
+        messageDiv.classList.add('error');
+        return;
+      }
+      if (data.password.length < 6) {
+        messageDiv.innerText = '密码至少6位';
+        messageDiv.classList.add('error');
+        return;
+      }
+
+      try {
+        const res = await fetch('/sign_up', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+
+        messageDiv.innerText = result.message;
+        if (result.success) {
+          messageDiv.classList.add('success');
+          setTimeout(() => {
+            window.location.href = '/sign_in.html';
+          }, 2000); // 2秒后跳转到登录页
+        } else {
+          messageDiv.classList.add('error');
+        }
+      } catch (err) {
+        messageDiv.innerText = '网络错误，请稍后重试';
+        messageDiv.classList.add('error');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
